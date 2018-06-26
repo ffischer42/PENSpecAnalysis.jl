@@ -38,6 +38,16 @@ function peakfit(h::Histogram)
     return p
 end
 
+function peakfit(dict::Dict)
+    for key in keys(dict)
+        filename = dict[key]
+        h = read_spec_data(filename)
+        plot!(plot, h,label="$key",st=:step)
+        peak = peakfit(h.edges[1],h.weights)[1]
+        push!(peaks,peak)
+        println("Peak wavelength for $key = $peak nm")
+end
+
 export peakfit
 
 function chisquare(xaxis, yaxis, model)
@@ -47,3 +57,4 @@ function chisquare(xaxis, yaxis, model)
     end
     return chi2
 end
+
