@@ -2,7 +2,7 @@
 
 function read_spec_data(filename::String)
     f = open(filename)
-    data = readdlm(IOBuffer(readstring(f)),',')
+    data = readdlm(IOBuffer(readstring(f)))
     data = data[1:end,1:2]
 
     edge_vec = [0.5 * (data[:,1][i] + data[:,1][i + 1]) for i = 1:length(data[:,1]) - 1]
