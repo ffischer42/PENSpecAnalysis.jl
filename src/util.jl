@@ -21,6 +21,6 @@ export find_index
 
 # Include Measurements support
 function find_value(h::Histogram, value)
-    h.weights(find_index(h,value)) ± 1 / sqrt(h.weights(find_index(h,value)))
+    h.weights[find_index(h,value)] ± 1 / sqrt(h.weights[find_index(h,value)])
 end
 export find_value
