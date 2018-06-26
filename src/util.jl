@@ -17,5 +17,9 @@ function find_index(h::Histogram,value)
     index = find_index(x,value)
     return index
 end
-
 export find_index
+
+function find_value(h::Histogram, value)
+    h.weights(find_index(h,value)) ± 1 / sqrt(h.weights(find_index(h,value)))
+end
+export find_value
