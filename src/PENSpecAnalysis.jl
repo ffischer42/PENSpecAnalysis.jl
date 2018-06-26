@@ -10,6 +10,7 @@ using Polynomials
 using Distributions
 using DataFrames
 using DataStructures
+using Measurements
 
 include("read_spec_data.jl")
 include("fit_spec.jl")
