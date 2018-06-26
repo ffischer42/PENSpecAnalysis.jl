@@ -1,4 +1,10 @@
 # function to find the index next to the bin of interest
+
+"""
+find_index(A,value)
+
+Find first index where value appears in list A
+"""
 function find_index(A, value)
     #b = findnext(A, value)
     c = minimum(find(a -> a >= value,A))
@@ -12,6 +18,11 @@ function find_index(A, value)
     return index
 end
 
+"""
+find_index(h::Histogram,value)
+
+Find first bin index where value appears in histogram h
+"""
 function find_index(h::Histogram,value)
     x = range(minimum(h.edges)[1],(maximum(h.edges)[1]/length(h.edges[1])),1024)
     index = find_index(x,value)
@@ -19,11 +30,22 @@ function find_index(h::Histogram,value)
 end
 
 # Include Measurements support
+
+"""
+find_value(h::Histogram, value)
+
+Find y value for the bin containing value in histogram h.
+"""
 function find_value(h::Histogram, value)
     h.weights[find_index(h,value)] ± 1 / sqrt(h.weights[find_index(h,value)])
 end
 export find_value
 
+"""
+prepare_dir(filepath::String, pattern="")
+
+Create OrderedDict of files matching option pattern in provided filepath.
+"""
 function prepare_dir(filepath::String, pattern="")
     data_dir = "/remote/ceph/group/gedet/data/pen/2018/$filepath"
     data_list = glob("*$pattern*",data_dir)

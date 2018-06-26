@@ -1,5 +1,16 @@
 # Compute StatsBase Histogram from raw spectrometer output.
 
+"""
+read_spec_data(filename::String)
+
+Reads input csv datafile from ANDOR Spectrometer into StatsBase histogram for analysis.
+
+# Arguements
+- 'filename::String': Spectrometer data file to be opened.
+
+# Returns
+- 'h::Histogram': Histogram of data.
+"""
 function read_spec_data(filename::String)
     f = open(filename)
     data = readdlm(IOBuffer(readstring(f)),',')

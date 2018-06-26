@@ -1,5 +1,21 @@
-# Part of PENSpecAnalysis.jl module.h =
+# Part of PENSpecAnalysis.jl module.h
 
+
+
+"""
+peakfit(x,y)
+
+Fits second order polynomial to mapping x -> y around maximal y-value.
+
+# Arguements
+- 'xaxis': x values for fit
+- 'yaxis': y values to be fitted to.
+# Returns
+- 'peak::Measurement': Peak extracted from fit, with resolution.
+- 'fit_function::function': function mapping x -> y
+- 'chisquare::Float64' chi squared of fit to input data.
+- 'p::Polynomial' polynomial computed, alternate form of fit_function.
+"""
 function peakfit(xaxis,yaxis)
     max =  findmax(yaxis)
     p = polyfit(float.(xaxis[max[2]-5:max[2]+5]),float.(yaxis[max[2]-5:max[2]+5]),2)
@@ -33,6 +49,19 @@ function peakfit(xaxis,yaxis,range,string::String)
     return peak, fit_function, chisquare(xaxis[max[2]-15:max[2]+7], yaxis[max[2]-15:max[2]+7], p),p
 end
 
+
+"""
+peakfit(h::Histogram)
+
+Fits second order polynomial to mapping x -> y around maximal y-value.
+Alias for peakfit(h.edges,h.weight)
+
+# Arguements
+- 'xaxis': x values for fit
+- 'yaxis': y values to be fitted to.
+# Returns
+- 'p': Array of returned value from peakfit(x,y)
+"""
 function peakfit(h::Histogram)
     p = peakfit(float.(h.edges[1]), float.(h.weights))
     return p
@@ -40,6 +69,12 @@ end
 
 export peakfit
 
+"""
+chisquare(xaxis, yaxis, model)
+
+Calculates the chi squared of a set of data (x,y) and a model
+
+"""
 function chisquare(xaxis, yaxis, model)
     chi2 = 0
     for i in eachindex(xaxis)
