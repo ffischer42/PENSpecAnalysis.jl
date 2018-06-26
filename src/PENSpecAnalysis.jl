@@ -11,6 +11,7 @@ using Distributions
 using DataFrames
 using DataStructures
 using Measurements
+using SIUnits, SIUnits.ShortUnits
 
 include("read_spec_data.jl")
 include("fit_spec.jl")
