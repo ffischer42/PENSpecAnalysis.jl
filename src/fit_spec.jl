@@ -32,7 +32,6 @@ function peakfit(xaxis,yaxis; range=10)
     c = coeffs(p)
     fit_function(x) = c[1]+c[2]x+c[3]x^2  # [f(x) = f(x) + c[iter]*x^(iter-1) for iter in eachindex(c)]
     peak = roots(polyder(p,1))[1] ± (xaxis[end]-xaxis[1])/length(xaxis)
-    diffstring = @sprintf("%0.2f",peak[1]-xaxis[indmax(yaxis)])
     return peak, fit_function, chisquare(xaxis[max[2]-range:max[2]+range], yaxis[max[2]-range:max[2]+range], p),p
 end
 
@@ -60,8 +59,8 @@ Alias for peakfit(h.edges,h.weight)
 # Returns
 - 'p': Array of returned value from peakfit(x,y)
 """
-function peakfit(h::Histogram; r=10)
-    p = peakfit(float.(h.edges[1]), float.(h.weights),range=r)
+function peakfit(h::Histogram; range=10)
+    p = peakfit(float.(h.edges[1]), float.(h.weights),range=range)
     return p
 end
 
