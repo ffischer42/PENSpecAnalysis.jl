@@ -25,20 +25,19 @@ function peakfit(xaxis,yaxis; range=10)
     peak = roots(polyder(p,1))[1] ± (xaxis[end]-xaxis[1])/length(xaxis)
     return peak, fit_function, chisquare(xaxis[max[2]-5:max[2]+5], yaxis[max[2]-5:max[2]+5], p),p
 end
-"""
-function peakfit(xaxis,yaxis,range)
-    max =  findmax(yaxis)
-    p = polyfit(float.(xaxis[max[2]-range:max[2]+range]),float.(yaxis[max[2]-range:max[2]+range]),2)
-    c = coeffs(p)
-    fit_function(x) = c[1]+c[2]x+c[3]x^2  # [f(x) = f(x) + c[iter]*x^(iter-1) for iter in eachindex(c)]
-    peak = roots(polyder(p,1))[1] ± (xaxis[end]-xaxis[1])/length(xaxis)
-    diffstring = @sprintf("%0.2f",peak[1]-xaxis[indmax(yaxis)])
-    if range == 15
-        println("Difference [fit - data] = $diffstring nm")
-    end
-    return peak, fit_function, chisquare(xaxis[max[2]-range:max[2]+range], yaxis[max[2]-range:max[2]+range], p),p
-end
-"""
+
+# function peakfit(xaxis,yaxis,range)
+#     max =  findmax(yaxis)
+#     p = polyfit(float.(xaxis[max[2]-range:max[2]+range]),float.(yaxis[max[2]-range:max[2]+range]),2)
+#     c = coeffs(p)
+#     fit_function(x) = c[1]+c[2]x+c[3]x^2  # [f(x) = f(x) + c[iter]*x^(iter-1) for iter in eachindex(c)]
+#     peak = roots(polyder(p,1))[1] ± (xaxis[end]-xaxis[1])/length(xaxis)
+#     diffstring = @sprintf("%0.2f",peak[1]-xaxis[indmax(yaxis)])
+#     if range == 15
+#         println("Difference [fit - data] = $diffstring nm")
+#     end
+#     return peak, fit_function, chisquare(xaxis[max[2]-range:max[2]+range], yaxis[max[2]-range:max[2]+range], p),p
+# end
 
 function peakfit(xaxis,yaxis,range,string::String)
     max =  findmax(yaxis)
