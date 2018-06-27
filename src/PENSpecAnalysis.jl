@@ -15,8 +15,8 @@ using Glob
 using Plots
 using SIUnits, SIUnits.ShortUnits
 
-include("src/read_spec_data.jl")
-include("src/fit_spec.jl")
-include("src/util.jl")
+include("read_spec_data.jl")
+include("fit_spec.jl")
+include("util.jl")
 
 end # module
