@@ -26,7 +26,7 @@ Fits second order polynomial to mapping x -> y around maximal y-value.
 #     return peak, fit_function, chisquare(xaxis[max[2]]-range):float.(xaxis[max[2]]+range, yaxis[max[2]]-range):float.(yaxis[max[2]]+range, p),p
 # end
 
-function peakfit(xaxis,yaxis; range)
+function peakfit(xaxis,yaxis; range=10)
     max =  findmax(yaxis)
     p = polyfit(float.(xaxis[max[2]-range:max[2]+range]),float.(yaxis[max[2]-range:max[2]+range]),2)
     c = coeffs(p)
@@ -60,8 +60,8 @@ Alias for peakfit(h.edges,h.weight)
 # Returns
 - 'p': Array of returned value from peakfit(x,y)
 """
-function peakfit(h::Histogram; range=10)
-    p = peakfit(float.(h.edges[1]), float.(h.weights))
+function peakfit(h::Histogram; r=10)
+    p = peakfit(float.(h.edges[1]), float.(h.weights),range=r)
     return p
 end
 
