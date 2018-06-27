@@ -63,7 +63,7 @@ Alias for peakfit(h.edges,h.weight)
 # Returns
 - 'p': Array of returned value from peakfit(x,y)
 """
-function peakfit(h::Histogram)
+function peakfit(h::Histogram; range=10)
     p = peakfit(float.(h.edges[1]), float.(h.weights))
     return p
 end
