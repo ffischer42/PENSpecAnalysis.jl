@@ -60,5 +60,4 @@ function prepare_dir(filepath::String, pattern="")
     end
     return data_dict
 end
-
 export prepare_dir
