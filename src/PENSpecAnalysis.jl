@@ -12,6 +12,7 @@ using DataFrames
 using DataStructures
 using Measurements
 using Glob
+using Plots
 using SIUnits, SIUnits.ShortUnits
 
 include("read_spec_data.jl")
