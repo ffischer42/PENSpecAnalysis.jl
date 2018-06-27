@@ -1,5 +1,13 @@
 # Part of PENSpecAnalysis.jl module.
 
+
+"""
+plot_emission_spectra(dict::OrderedDict,fit=false)
+
+Produce plots of each spectra in given Dict.
+
+Plot can optionally contain peak wavelength and chi2 of fit.
+"""
 function plot_emission_spectra(dict::OrderedDict,fit=false)
     plt = plot(bg=:white)
     for key in keys(dict)
@@ -20,6 +28,16 @@ end
 
 export plot_emission_spectra
 
+"""
+plot_norm_emission_spectra(dict::OrderedDict,fit=false)
+
+Produce plots of each spectra in given Dict.
+
+Plot can optionally contain peak wavelength and chi2 of fit.
+
+# Arguements
+- 'mode' = normalization setting to be used. If height, histogram normallized to highest weight. If area, normalized so norm(h)=1.
+"""
 function plot_norm_emission_spectra(dict::OrderedDict,fit=false; mode="height")
     plt = plot(bg=:white)
     for key in keys(dict)
