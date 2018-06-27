@@ -1,4 +1,4 @@
-# Part of PENSpecAnalysis.jl module.h
+# Part of PENSpecAnalysis.jl module.
 
 
 
