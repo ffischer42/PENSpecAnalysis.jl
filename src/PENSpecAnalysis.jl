@@ -18,5 +18,6 @@ using SIUnits, SIUnits.ShortUnits
 include("read_spec_data.jl")
 include("fit_spec.jl")
 include("util.jl")
+include("plot.jl")
 
 end # module
