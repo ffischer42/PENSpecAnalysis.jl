@@ -28,7 +28,7 @@ function find_index(h::Histogram,value)
     index = find_index(x,value)
     return index
 end
-
+export find_index
 # Include Measurements support
 
 """

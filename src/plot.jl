@@ -26,6 +26,19 @@ function plot_emission_spectra(dict::OrderedDict,fit=false;range=10)
 
 end
 
+function plot_emission_spectra(h::Histogram,fit=false;range=10)
+    h = read_spec_data(dict[key])
+    plot!(plt, h,label="$key",st=:step)
+
+    if fit
+        fitting = peakfit(h,range=range)
+        peak_val = Measurements.value(fitting[1])
+        peak_unc = Measurements.uncertainty(fitting[1])
+        scatter!(plt,[peak_val],[Measurements.value(fitting[2](fitting[1]))],xlims=[h.edges[1][1]+10,h.edges[1][end]-10],label="$(@sprintf("%0.2f",peak_val)) ± $(@sprintf("%0.2f",peak_unc)) nm")
+        plot!(plt,fitting[2],[peak_val-5:peak_val+5],label="Fit \chi^2 = $(@sprintf("%0.2f",fitting[3]))")
+    end
+    return plt
+end
 export plot_emission_spectra
 
 """
