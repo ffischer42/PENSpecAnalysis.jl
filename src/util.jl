@@ -61,3 +61,63 @@ function prepare_dir(filepath::String, pattern="")
     return data_dict
 end
 export prepare_dir
+
+
+"""
+subtract_bkg(data, bkg)
+
+Subtracting the background data from the raw data.
+There are several input formats implemented:
+ - data::Array{Any,2}
+ - data::Array{Any,1}
+ - data::StatsBase.Weights{Float64,Float64,Array{Float64,1}}
+ which are the common formats resulting from the read_spec_data.jl
+ The Background is demanded in the format of a Tuple including the x data to check whether the 
+ background corresponds to the data (in case the x data is given). 
+"""
+
+function subtract_bkg(data, bkg)
+    if length(bkg) == 2 # Check the format of the background data
+        background = bkg[2]
+    else 
+        background = bkg
+    end
+    
+    if typeof(data) == Array{Any,2}
+        if data[1][1] == bkg[1]
+            data_bkg_sub = Matrix{Any}(Int(length(data)/2), 2)
+            i = 1
+            while i <= Int(length(data)/2)
+                data_bkg_sub[i,1] = data[i][1]
+                data_bkg_sub[i,2] = data[i][2].- background
+                i += 1
+            end
+            return data_bkg_sub
+        else 
+            println("Wavelength calibration does not fit!")
+            return
+        end
+        
+        
+    elseif typeof(data) == Array{Any,1}
+            data_bkg_sub = Array{Any}(Int(length(data)))
+            i = 1
+            while i <= Int(length(data))
+                data_bkg_sub[i] = data[i].- background
+                i += 1
+            end  
+        return data_bkg_sub
+
+        
+    elseif typeof(data) == StatsBase.Weights{Float64,Float64,Array{Float64,1}}
+        data_bkg_sub = data.- background
+        return data_bkg_sub
+
+        
+    else
+        println("Wrong format. Are you sure that you put it in the 'Counts'?")
+        return
+    end
+    
+end
+export subtract_bkg
